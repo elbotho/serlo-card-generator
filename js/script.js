@@ -34,11 +34,17 @@ function getCleanData() {
   
   var newData = $('#datarow').val().split('\t');
   //Timestamp – Email address – Vorname Name – Deine Position – Deine Serlo Mailadresse – Deine Handynummer // – Wie viele brauchst du ca.?  Brauchst du die Karten bis zu einem bestimmten Termin?  Bis wann spätestens?  Nicht in München?           
-  data [ 'mail' ] = newData[4];
-  data [ 'name' ] = newData[2];
-  data [ 'position' ] = newData[3];
-  data [ 'number' ] = newData[5];
-  
+  data ['mail'] = newData[4];
+  data ['name'] = newData[2];
+  data ['position'] = newData[3];
+  data ['number'] = newData[5];
+
+  if( data ['position'].indexOf('<br>') !== -1 ){
+    data ['position'] = '<tspan x="0" dy="0">' + data ['position'].replace('<br>','</tspan><tspan x="0" dy="1.375em" class="move">') + '</tspan>';
+    $('#preview text.move').attr('dy','1.375em');
+    $('#preview polygon.move').css("transform", "translate(0,.74em)");
+  }
+
   // for (var i = 0; i < fields.length; i++) {
   //   data[ fields[i] ] = $('#' + fields[i] ).val();
   //   if (data[fields[i]]===null || data[fields[i]]===undefined){
